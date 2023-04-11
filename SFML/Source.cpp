@@ -55,29 +55,38 @@ struct CalcNumbers {
         MyText.setPosition( x, y);
     }
     string CorrectFormat() {//formats
-        string FormatedNumber = "0000000000000000";
+        string FormatedNumber = "00000000000000000";
         int i = GetScientificDecimal(MyString);
-        if (i > 16) {
-            FormatedNumber.at(16) = i % 10 + 48;
-            FormatedNumber.at(15) = i / 10 + 48;
-            for (i = 0; (i < MyString.size())&&i<15; i++) {
-                FormatedNumber.at(i) = MyString.at(i);
-            }
-            FormatedNumber.insert(FormatedNumber.begin() + 1 + (MyString.at(0) == '-'), '.');
+        cout << i << '\n';
+        if (i > 100 || i < -100) {
+            MyString = "0";
+            return "Overload";
         }
-        else if(i<-15){
+        else if (i > 16) {
+            i--;
             FormatedNumber.at(16) = i % 10 + 48;
             FormatedNumber.at(15) = i / 10 + 48;
-            FormatedNumber.at(14) = '-';
+            FormatedNumber.at(14) = 'e';
             for (i = 0; (i < MyString.size()) && i < 14; i++) {
                 FormatedNumber.at(i) = MyString.at(i);
             }
             FormatedNumber.insert(FormatedNumber.begin() + 1 + (MyString.at(0) == '-'), '.');
         }
-        else if(MyString.size()>17){//we dont need scientific decimal
-            for (i = 0; i < MyString.size(); i++) {
-                FormatedNumber.at(i) = MyString.at(i);
+        else if (i < -15) {
+            i = i * -1;
+            FormatedNumber.at(16) = i % 10 + 48;
+            FormatedNumber.at(15) = i / 10 + 48;
+            FormatedNumber.at(14) = '-';
+            FormatedNumber.at(13) = 'e';
+            if (MyString.at(0) == '-') {
+                FormatedNumber.at(0) = '-';
+                i--;
             }
+            i = i + 1 + (MyString.at(0) == '-');
+            for (int j = (MyString.at(0) == '-'); (i + j < MyString.size()) && j < 13; j++) {
+                FormatedNumber.at(j) = MyString.at(i + j);
+            }
+            FormatedNumber.insert(FormatedNumber.begin() + 1 + (MyString.at(0) == '-'), '.');
         }
         else {
             return MyString;
@@ -85,13 +94,12 @@ struct CalcNumbers {
         return FormatedNumber;
     }
 };
-void viewChange(sf::Window &window) {
-    //get windo information keep the proportions the same but not the window//everything else will be black
-    
-}
-char button(int x, int y) {
-    int column = -1, row = -1;
+char button(unsigned int x, unsigned int y,sf::Vector2u size) {
+    unsigned int column = -1, row = -1;
     char lookup[20] = {'c','e','i','/','1','2','3','*','4','5','6','+','7','8','9','-','n','0','.','='};
+    //adjust for window size
+    x = x * 584 / size.x;
+    y = y * 634 / size.y;
     //x coordinates
     if (x > 8 && x < 139) {
         column = 0;
@@ -276,12 +284,6 @@ string multiply(string a, string b) {
         positive = true;
     }
     tempA = 0;
-    //check for overload
-    if (a.size() + b.size() > 100) { 
-        cout << "overload";
-        return "0";
-    }
-
     //finding decimals
     for (i = 0; i < a.size(); i++) {
         if (a.at(i) == '.') {
@@ -524,6 +526,7 @@ int main(){
     font.loadFromFile("C:\\Windows\\Fonts\\Consola.ttf");
     //make window
     sf::RenderWindow window(sf::VideoMode(584, 634), "Calculator");
+    sf::Vector2u size;//we need the size of the window for the button function
     window.setFramerateLimit(30);
 
     //calculator background
@@ -557,7 +560,8 @@ int main(){
             if (event.type == sf::Event::MouseButtonReleased)
             {
                 if (event.mouseButton.button == sf::Mouse::Left) {
-                    EntryText.operation = button(event.mouseButton.x, event.mouseButton.y);
+                    size = window.getSize();
+                    EntryText.operation = button(event.mouseButton.x, event.mouseButton.y, size);
                     cout << EntryText.operation;
 
                 }
@@ -570,7 +574,6 @@ int main(){
                     //do nothing no button was pressed
                     break;
                 case 'c'://clear both entries
-                    cout << "\nclear all\n";
                     History.Clear();
                     EntryText.Clear();
                     break;
@@ -591,7 +594,7 @@ int main(){
                     else{
                         EntryText.MyString.insert(EntryText.MyString.begin(), '-');
                     }
-                    EntryText.MyText.setString(EntryText.MyString);
+                    EntryText.MyText.setString(EntryText.CorrectFormat());
                     break;
                 case '=':
                     //based on history operation calculate new value
@@ -622,79 +625,80 @@ int main(){
                         EntryText.Clear();
                     }
                     History.operation = ' ';
-                    History.MyText.setString(History.MyString + History.operation);
+                    History.MyText.setString(History.CorrectFormat() + History.operation);
                     break;
                 case '/'://division
-                    if (History.operation == ' ' || (History.MyString.size() == 1 && History.MyString.at(0) == '0')) {
+                    if (History.operation == ' ' && (History.MyString.size() != 1 || History.MyString.at(0) != '0')) {
+                        History.operation = '/';
+                    }
+                    else if (History.operation == ' ' || (History.MyString.size() == 1 && History.MyString.at(0) == '0')) {
                         History.MyString = EntryText.MyString;
                         History.operation = '/';
-                        History.MyText.setString(History.MyString + History.operation);
+                        EntryText.Clear();
                     }
                     else {
                         //division
                         History.MyString = division(History.MyString, History.MyString);
                         History.operation = ' ';
-                        History.MyText.setString(History.MyString + History.operation);
                         EntryText.Clear();
                     }
+                    History.MyText.setString(History.CorrectFormat() + History.operation);
                     break;
                 case '-'://subtract
-                    if (History.operation == ' ' || (History.MyString.size() == 1 && History.MyString.at(0) == '0')) {
+                    if (History.operation == ' ' && (History.MyString.size() != 1 || History.MyString.at(0) != '0')) {
+                        History.operation = '-';
+                    }
+                    else if (History.operation == ' ' || (History.MyString.size() == 1 && History.MyString.at(0) == '0')) {
                         History.MyString = EntryText.MyString;
                         History.operation = '-';
-                        History.MyText.setString(History.MyString + History.operation);
                         EntryText.Clear();
-                        cout << EntryText.operation << "Series A";
                     }
                     else {
-                        cout << EntryText.operation << "Series B";
                         if (EntryText.MyString.at(0) == '-') {
                             EntryText.MyString.erase(EntryText.MyString.begin());
                         }
                         else {
                             EntryText.MyString.insert(EntryText.MyString.begin(), '-');
                         }
-
-                        cout << "addition start "<<History.MyString<<" and "<<EntryText.MyString;
                         History.MyString = addition(History.MyString,EntryText.MyString);
-                        cout << "addition end;";
                         History.operation = ' ';
-                        History.MyText.setString(History.MyString + History.operation);
                         EntryText.Clear();
-                        cout << EntryText.operation << "Series B";
-
                     }
+                    History.MyText.setString(History.CorrectFormat() + History.operation);
                     break;
                 case '+':
-                    cout << "here add";
-                    if (History.operation == ' ' || (EntryText.MyString.size() == 1 && EntryText.MyString.at(0) == '0')) {
+                    if (History.operation == ' ' && (History.MyString.size() != 1 || History.MyString.at(0) != '0')) {
+                        History.operation = '+';
+                    }
+                    else if (History.operation == ' ' || (EntryText.MyString.size() == 1 && EntryText.MyString.at(0) == '0')) {
                         History.MyString = EntryText.MyString;
                         History.operation = '+';
-                        History.MyText.setString(History.MyString + History.operation);
+                        EntryText.Clear();
                     }
                     else {
                         //addition
                         History.MyString = addition(EntryText.MyString, History.MyString);
                         History.operation = EntryText.operation;
-                        History.MyText.setString(History.MyString + History.operation);
                         EntryText.Clear();
                     }
+                    History.MyText.setString(History.CorrectFormat() + History.operation);
                     break;
                 case '*'://multiply
-                    cout << "here multiply\n";
-                    if (History.operation == ' ' || (History.MyString.size() == 1 && History.MyString.at(0) == '0')) {
+                    if (History.operation == ' ' && (History.MyString.size() != 1 || History.MyString.at(0) != '0')) {
+                        History.operation = '*';
+
+                    }
+                    else if (History.operation == ' ' || (History.MyString.size() == 1 && History.MyString.at(0) == '0')) {
                         History.MyString = EntryText.MyString;
                         History.operation = '*';
-                        History.MyText.setString(History.MyString + History.operation);
                         EntryText.Clear();
                     }
                     else {
-                        cout << "\nwe multiplied\n"<<History.MyString<<"*"<<EntryText.MyString;
                         History.MyString=multiply(EntryText.MyString, History.MyString);
                         History.operation = EntryText.operation;
-                        History.MyText.setString(History.MyString+History.operation);
                         EntryText.Clear();
                     }
+                    History.MyText.setString(History.CorrectFormat() + History.operation);
                     break;
                 case '.':
                     if (GetScientificDecimal(EntryText.MyString) == EntryText.MyString.size()) {
@@ -720,6 +724,8 @@ int main(){
                     }
                     break;
                 }
+                //check for overload
+                
             }
         }
 
