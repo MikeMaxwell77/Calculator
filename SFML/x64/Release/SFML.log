@@ -1,22 +1,22 @@
 ﻿  Source.cpp
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(144,9): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(175,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(179,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(198,13): warning C4804: '>': unsafe use of type 'bool' in operation
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(202,13): warning C4804: '>': unsafe use of type 'bool' in operation
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(226,5): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(226,42): warning C4804: '>': unsafe use of type 'bool' in operation
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(288,41): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(295,53): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(311,5): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(320,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(386,9): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(414,5): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(448,17): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(467,13): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(143,9): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(174,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(178,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(197,13): warning C4804: '>': unsafe use of type 'bool' in operation
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(201,13): warning C4804: '>': unsafe use of type 'bool' in operation
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(225,5): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(225,42): warning C4804: '>': unsafe use of type 'bool' in operation
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(287,41): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(294,53): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(310,5): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(319,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(385,9): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(413,5): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(447,17): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\SFML\Source.cpp(466,13): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   Generating code
-  5 of 208 functions ( 2.4%) were compiled, the rest were copied from previous compilation.
-    3 functions were new in current compilation
-    22 functions had inline decision re-evaluated but remain unchanged
+  1 of 204 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    13 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   SFML.vcxproj -> C:\Users\Michael\OneDrive\Documents\GitHub\Calculator\x64\Release\SFML.exe
